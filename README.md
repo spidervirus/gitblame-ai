@@ -1,63 +1,26 @@
 # 🔥 gitblame-ai
 
-> **AI-powered code roaster. `git blame` was always personal — now it's savage.**
+[![GitHub stars](https://img.shields.io/github/stars/spidervirus/gitblame-ai?style=social)](https://github.com/spidervirus/gitblame-ai)
+[![License: MIT](https://img.shields.io/github/license/spidervirus/gitblame-ai)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 
-```bash
-pip install .
-gitblame-ai --roast .
-```
+**AI-powered code roaster. `git blame` was personal — now it's savage. Let Claude roast your team's worst code.**
+
+![gitblame-ai Demo](assets/demo.webp)
 
 ---
 
 ## What is this?
 
-`gitblame-ai` scans your repo with `git blame`, identifies each author's most *suspicious* code, and sends it to Claude AI for a brutally honest roast.
+`gitblame-ai` is a CLI tool that scans your repository using `git blame`, identifies each author's most *suspicious* code (based on heuristics like TODOs, bare excepts, and long-forgotten spaghetti), and sends it to Claude AI for a brutally honest roast.
+
+**Topics:** `python`, `cli`, `ai`, `code-review`, `git`, `claude`, `humor`, `roast`, `developer-tools`
 
 Perfect for:
 - 🤣 Team standups
 - 💀 Code review sessions
 - 🏆 Friday afternoon vibes
 - 😬 Holding people accountable in the funniest way possible
-
----
-
-## Demo
-
-```
-  ██████╗ ██╗████████╗██████╗ ██╗      █████╗ ███╗   ███╗███████╗      █████╗ ██╗
- ██╔════╝ ██║╚══██╔══╝██╔══██╗██║     ██╔══██╗████╗ ████║██╔════╝     ██╔══██╗██║
- ...
-
-  Target: ./my-project
-  Mode:   roast
-  Top:    3 authors
-
-  🔍 Roasting alice@dev.com... done (3/10)
-  🔍 Roasting bob@dev.com... done (7/10)
-  🔍 Roasting john@dev.com... done (2/10)
-
-
-══════════════════════════════════════════════════════════════
-  🔥  ROAST RESULTS  🔥
-══════════════════════════════════════════════════════════════
-
-──────────────────────────────────────────────────────────────
-  👤 john@dev.com  (847 lines of... code)
-  ████░░░░░░░░░░░░░░░░  💀 2/10
-──────────────────────────────────────────────────────────────
-  John, your `except: pass` blocks aren't error handling —
-  they're crime scenes. You've written `TODO: fix this later`
-  17 times across 3 files, which is impressive dedication to
-  procrastination. The variable named `data2` next to `data`
-  is genuinely haunting. I've seen better architecture in
-  a kindergarten Lego set.
-
-  Verdict: 2/10 💀
-
-
-  🏆 Hall of Shame: john@dev.com
-  Congratulations. You've earned it.
-```
 
 ---
 
@@ -76,7 +39,7 @@ Perfect for:
 Clone the repo and install it in editable mode:
 
 ```bash
-git clone https://github.com/yourusername/gitblame-ai.git
+git clone https://github.com/spidervirus/gitblame-ai.git
 cd gitblame-ai
 pip install -e .
 ```
@@ -161,4 +124,4 @@ MIT — roast freely, roast often.
 > *"With great `git blame` comes great responsibility."*
 > — probably someone
 
-**[⭐ Star this if your teammates deserve it](https://github.com/spidervirus/gitblame-ai)**
+### [⭐ Star this if you laughed!](https://github.com/spidervirus/gitblame-ai)
