@@ -3,7 +3,7 @@
 > **AI-powered code roaster. `git blame` was always personal — now it's savage.**
 
 ```bash
-pip install gitblame-ai
+pip install .
 gitblame-ai --roast .
 ```
 
@@ -61,10 +61,24 @@ Perfect for:
 
 ---
 
+## How it works
+
+1. Runs `git blame --line-porcelain` on all code files.
+2. Groups lines by author and filters out uncommitted changes.
+3. Scores each line for "badness" (TODOs, bare excepts, long lines, etc.) using modular heuristics.
+4. Sends the worst offenders to Claude AI (using `claude-3-5-sonnet`).
+5. Renders a beautiful terminal roast card per author.
+
+---
+
 ## Installation
 
+Clone the repo and install it in editable mode:
+
 ```bash
-pip install gitblame-ai
+git clone https://github.com/yourusername/gitblame-ai.git
+cd gitblame-ai
+pip install -e .
 ```
 
 Set your Anthropic API key:
@@ -82,7 +96,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 gitblame-ai .
 
 # Roast a single file
-gitblame-ai src/auth.py
+gitblame-ai gitblame_ai/main.py
 
 # Different modes
 gitblame-ai . --mode gentle   # Kind but disappointed
@@ -105,13 +119,18 @@ gitblame-ai . --top 5
 
 ---
 
-## How it works
+## Project Structure
 
-1. Runs `git blame --line-porcelain` on all code files
-2. Groups lines by author
-3. Scores each line for "badness" (TODOs, bare excepts, long lines, etc.)
-4. Sends the worst offenders to Claude AI
-5. Renders a beautiful terminal roast card per author
+```text
+gitblame-ai/
+├── gitblame_ai/       # Core package
+│   ├── git.py         # Git blame parsing & file discovery
+│   ├── ai.py          # Anthropic API integration
+│   ├── roaster.py     # Heuristics & Terminal UI
+│   └── main.py        # CLI Entry point
+├── pyproject.toml     # Package configuration
+└── README.md          # This file
+```
 
 ---
 
@@ -119,7 +138,7 @@ gitblame-ai . --top 5
 
 - Python 3.10+
 - Git repo
-- [Anthropic API key](https://console.anthropic.com) (free tier works)
+- [Anthropic API key](https://console.anthropic.com)
 
 ---
 
