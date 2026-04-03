@@ -6,7 +6,7 @@
 
 **AI-powered code roaster. `git blame` was personal — now it's savage. Let Claude roast your team's worst code.**
 
-![gitblame-ai Demo](assets/demo.webp)
+![gitblame-ai Demo](assets/demo.png)
 
 ---
 
