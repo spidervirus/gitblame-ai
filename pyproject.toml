@@ -28,9 +28,9 @@ dependencies = ["anthropic>=0.25.0"]
 gitblame-ai = "gitblame_ai.main:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/gitblame-ai"
-Repository = "https://github.com/yourusername/gitblame-ai"
-Issues = "https://github.com/yourusername/gitblame-ai/issues"
+Homepage = "https://github.com/spidervirus/gitblame-ai"
+Repository = "https://github.com/spidervirus/gitblame-ai"
+Issues = "https://github.com/spidervirus/gitblame-ai/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
