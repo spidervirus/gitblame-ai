@@ -44,3 +44,4 @@ venv.bak/
 .Trashes
 ehthumbs.db
 Thumbs.db
+ignored_file.py
