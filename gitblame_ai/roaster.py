@@ -26,17 +26,40 @@ def pick_worst_lines(author_lines: list[dict], n: int = 8) -> list[dict]:
     def badness_score(entry):
         code = entry["code"]
         score = 0
-        score += len(code) // 10                        # long lines
-        score += code.count("TODO") * 3                 # TODOs
-        score += code.count("FIXME") * 3
+        
+        # 1. Basics: keywords and length
+        score += len(code) // 20                        # long lines (scaled down)
+        score += code.count("TODO") * 3
+        score += code.count("FIXME") * 4
         score += code.count("hack") * 2
-        score += code.count("temp") * 2
         score += code.count("wtf") * 5
-        score += code.count("idk") * 4
-        score += code.count("except:") * 3             # bare excepts
+        score += code.count("except:") * 5              # bare excepts are crimes
         score += code.count("pass") * 2
-        score += (1 if "==" in code and "None" in code else 0) * 2
-        score += len([c for c in code if c == ';']) * 2
+        
+        # 2. Nested Loops (Heuristic based on indentation)
+        if re.search(r"^\s{8,}(for|while)\b", code):    # 2+ levels deep
+            score += 5
+        if re.search(r"^\s{12,}(for|while)\b", code):   # 3+ levels deep
+            score += 10
+            
+        # 3. Magic Numbers (numbers other than 0, 1, 10, 100, etc.)
+        magic_numbers = re.findall(r"\b\d{2,}\b", code)
+        for num in magic_numbers:
+            if num not in {"10", "100", "1000", "200", "404", "500"}:
+                score += 2
+                
+        # 4. Single-letter variables (assignments only)
+        if re.search(r"\b[a-zA-Z]\s*=[^=]", code):
+            score += 3
+            
+        # 5. Commented-out Code
+        if re.search(r"^\s*#\s*(if|for|while|def|print|class|import|return)\b", code):
+            score += 4
+            
+        # 6. Hardcoded Secrets
+        if re.search(r"(api_key|password|secret|token|credential)\s*=", code, re.I):
+            score += 8
+            
         return score
 
     sorted_lines = sorted(author_lines, key=badness_score, reverse=True)
