@@ -38,20 +38,39 @@ def run_git_blame(filepath: str) -> list[dict]:
     return blame_entries
 
 def collect_blame_data(path: str, max_files: int = 10) -> dict:
-    """Collect blame data across all code files in a path."""
+    """Collect blame data across all code files in a path, respecting .gitignore."""
     target = Path(path)
     author_lines = defaultdict(list)  # author -> list of (file, code, commit_msg)
 
     if target.is_file():
         files = [target]
     else:
-        files = [
-            f for f in target.rglob("*")
-            if f.suffix in SUPPORTED_EXTENSIONS
-            and ".git" not in f.parts
-            and "node_modules" not in f.parts
-            and "__pycache__" not in f.parts
-        ][:max_files]
+        try:
+            # Use git ls-files to automatically respect .gitignore
+            # If path is '.', it lists all tracked files in the repo
+            result = subprocess.run(
+                ["git", "ls-files", str(path)],
+                capture_output=True, text=True, check=True,
+                cwd=target.parent if target.is_dir() else None
+            )
+            tracked_files = result.stdout.splitlines()
+            # Convert strings back to Path objects and filter by extension
+            files = []
+            for f_str in tracked_files:
+                f_path = Path(f_str)
+                if f_path.suffix in SUPPORTED_EXTENSIONS:
+                    files.append(f_path)
+                if len(files) >= max_files:
+                    break
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            # Fallback to rglob for non-git repos or errors
+            files = [
+                f for f in target.rglob("*")
+                if f.suffix in SUPPORTED_EXTENSIONS
+                and ".git" not in f.parts
+                and "node_modules" not in f.parts
+                and "__pycache__" not in f.parts
+            ][:max_files]
 
     if not files:
         from .roaster import RED, RESET
