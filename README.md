@@ -161,4 +161,4 @@ MIT — roast freely, roast often.
 > *"With great `git blame` comes great responsibility."*
 > — probably someone
 
-**[⭐ Star this if your teammates deserve it](https://github.com/yourusername/gitblame-ai)**
+**[⭐ Star this if your teammates deserve it](https://github.com/spidervirus/gitblame-ai)**
