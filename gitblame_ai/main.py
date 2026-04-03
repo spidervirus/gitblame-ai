@@ -63,7 +63,7 @@ def main():
     )
     parser.add_argument(
         "--mode",
-        choices=["roast", "gentle", "poetic"],
+        choices=["roast", "gentle", "poetic", "pirate", "corporate", "valley_girl"],
         default="roast",
         help="Roast style: roast (savage), gentle (kind-ish), poetic (Shakespeare)",
     )
